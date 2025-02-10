@@ -6,13 +6,13 @@
 
     <groupId>pwtool</groupId>
     <artifactId>pwtool</artifactId>
-    <version>2023.5.0</version>
+    <version>2025.2.3</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <timestamp>${maven.build.timestamp}</timestamp>
-        <maven.build.timestamp.format>yyyyMMdd'+'HHmm</maven.build.timestamp.format>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
     </properties>
 
     <dependencies>
@@ -177,6 +177,9 @@
 
                                 <copy  overwrite="true" tofile="${project.build.directory}/out/${artifactId}.pdata"  file="${project.build.directory}/../${artifactId}.pdata" />
 
+                                <zip destfile="${project.build.directory}/${artifactId}-${project.version}-${timestamp}.zip" compress="true">
+                                    <zipfileset dir="${project.build.directory}/out" prefix="${project.artifactId}-${project.version}"/>
+                                </zip>
                                 <zip destfile="${project.build.directory}/${artifactId}-${project.version}-${timestamp}.zip" compress="true">
                                     <zipfileset dir="${project.build.directory}/out" prefix="${project.artifactId}-${project.version}"/>
                                 </zip>

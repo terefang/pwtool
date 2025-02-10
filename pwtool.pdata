@@ -12,6 +12,7 @@
     "Word Safe" = [ "RVWXcfghjmpqrvwx" "23456789" "CFGHJMPQ" "" ]
     "Safer" = [ "ACDEFGHJKLMNPQRTUVWXY" "abcdefghjkmnpqrtuvwxy" "34679" "$%&*+" ]
     "Extensive" = [ "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz" "0123456789" "!#%&()*+,-./:;<=>?@[\\]^_{|}~" ]
+    "TACACS/RADIUS" = [ "ABCDEFGHIJKLMabcdefghijklm" "NOPQRSTUVWXYZnopqrstuvwxyz" "0123456789" "!/-@" ]
 }
 
 

@@ -385,18 +385,26 @@ public class MainGUI extends JFrame
                 this.logPrint(String.format("%-14s", _algo));
                 String _pw = PwTool.passwordToPassword(_algo,_seed,_set,this._pwlen_model.getNumber().intValue());
                 _rs = nbvcxz.estimate(_pw);
+                double _ntpy = _rs.getEntropy()-log(12500., 2.);
                 if(!this.cbInfo.isSelected())
                 {
-                    double _time = Math.pow(2., _rs.getEntropy()-log(1000., 2.));
-                    this.logPrint(String.format(" | %s (%d; %.2f; %s) \n", _pw, _rs.getBasicScore(), _rs.getEntropy(), humanReadableFormat((long) _time)));
+                    double _time = Math.pow(2., _rs.getEntropy()-log(12500., 2.));
+                    this.logPrint(String.format(" | %s (%d; %.2f; %s) \n", _pw, _rs.getBasicScore(), _rs.getEntropy(), _ntpy>64f ?"NEVER":humanReadableFormat((long) _time)));
                 }
                 else
                 {
                     this.logPrint(String.format(" | %s (%d, %.2f) \n", _pw, _rs.getBasicScore(), _rs.getEntropy()));
-                    double _time = Math.pow(2., _rs.getEntropy()-log(12500., 2.));
-                    this.logPrint(String.format("Time to Crack (12k5 O/s) -> %s \n", humanReadableFormat((long) _time)));
-                    _time = Math.pow(2., _rs.getEntropy()-log(1000., 2.));
-                    this.logPrint(String.format("Time to Crack (1k R/s) -> %s \n", humanReadableFormat((long) _time)));
+                    if(_ntpy>64f)
+                    {
+                        this.logPrint("Time to Crack -> NEVER \n");
+                    }
+                    else
+                    {
+                        double _time = Math.pow(2., _ntpy);
+                        this.logPrint(String.format("Time to Crack (12k5 O/s) -> %s \n", humanReadableFormat((long) _time)));
+                        _time = Math.pow(2., _rs.getEntropy()-log(1000., 2.));
+                        this.logPrint(String.format("Time to Crack (1k R/s) -> %s \n", humanReadableFormat((long) _time)));
+                    }
                 }
 
             }
@@ -451,26 +459,32 @@ public class MainGUI extends JFrame
             if(_y>1000000)
             {
                 _sb.append((_y/1000000)+"My ");
+                return _sb.toString().trim();
             }
             else if(_y>1000)
             {
                 _sb.append((_y/1000)+"ky ");
+                return _sb.toString().trim();
             }
             else if(_y>0)
             {
                 _sb.append(_y+"y ");
+                return _sb.toString().trim();
             }
             _sb.append(_d+"d ");
+            return _sb.toString().trim();
         }
 
         if(duration.toHoursPart()>0)
         {
             _sb.append(duration.toHoursPart()+"h ");
+            return _sb.toString().trim();
         }
 
         if(duration.toMinutesPart()>0)
         {
             _sb.append(duration.toMinutesPart()+"m ");
+            return _sb.toString().trim();
         }
 
         if(duration.toSecondsPart()>0)
